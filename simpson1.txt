@@ -1,0 +1,46 @@
+//Simpson's 3/8 Rule
+
+#include <stdio.h>
+# define f(x) (1/(1+x*x))
+
+int main()
+{
+    float ll,ul,integration=0,k,h;
+    int i,sub;
+    printf("Enter the lower limit of integration:");
+    scanf("%f",&ll);
+    printf("Enter the Upper limit of integration:");
+    scanf("%f",&ul);
+    printf("Enter the number of Subintervals:");
+    scanf("%d",&sub);
+    
+    h=(ul-ll)/sub;
+    
+    integration=f(ll)+f(ul);
+    for (i=1;i<=(sub-1);i++)
+    {
+        k=ll+i*h;
+        if (i%3!=0)
+        {
+            integration=integration+3*f(k);
+        }
+        else
+        {
+            integration=integration+2*f(k);
+        }
+    }
+    integration=integration*(3*h)/8;
+    printf("The required solution of integration is %0.4f",integration);
+    return(0);
+
+}
+
+
+
+Output:
+
+
+Enter the lower limit of integration:0
+Enter the Upper limit of integration:1
+Enter the number of Subintervals:6
+The required solution of integration is 0.7854

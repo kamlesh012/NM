@@ -1,0 +1,28 @@
+//Trapezoidal rule
+
+#define f(x) pow(x,3)
+
+int main()
+{
+ float l, u, in=0.0, h, sol;
+ int i, n;
+ 
+ printf("Enter lower limit of integration: ");
+ scanf("%f", &l);
+ printf("Enter upper limit of integration: ");
+ scanf("%f", &u);
+ printf("Enter number of sub intervals: ");
+ scanf("%d", &n);
+ h = (u - l)/n;
+
+//formula
+ in = f(l) + f(u);
+ for(i=1; i<= n-1; i++)
+ {
+   sol = l + i*h;
+  in = in + 2 * f(sol);
+ }
+ in = in * h/2;
+ printf("\nRequired value of integration is: %.6f", in);
+ return 0;
+}

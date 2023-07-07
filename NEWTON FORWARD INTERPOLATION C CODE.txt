@@ -1,0 +1,100 @@
+NEWTON FORWARD INTERPOLATION C CODE
+
+x     0   1    2    3
+f(x)  1   2   11   34
+
+Find f(2.8)
+
+   
+#include <stdio.h>
+int fact(int);
+void main()
+{
+float arr[10][11],xp,h,p,yp,sol=1;
+int i,j,n,ch=30;
+printf("\nEnter the number of data:");
+scanf("%d",&n);
+printf("\nEnter the data values");
+for(i=0;i<n;i++)
+{ 
+printf("x%d=",i+1);
+scanf("%f",&arr[i][0]);
+printf("y%d=",i+1);
+scanf("%f",&arr[i][1]);
+}
+//difference table.
+for(j=2;j<=n;j++)
+{
+for(i=0;i<n-1;i++)
+{
+arr[i][j]=arr[i+1][j-1]-arr[i][j-1];
+}
+
+}
+//Printing difference  table
+printf("\n Difference table is:-");
+printf("\n\tx\tY");
+for(i=0;i<=n-2;i++)
+{
+printf("\t%c^%dY",ch,i+1);
+}
+for(i=0;i<n;i++)
+{
+printf("\n");
+for(j=0;j<n+1-i;j++)
+{
+printf("\t%.4f",arr[i][j]);
+}
+}
+// Forward difference Formula use 
+printf("\nEnter the interpolating value x for function f(x):");
+scanf("%f",&xp);
+h=arr[1][0]-arr[0][0];
+p=(xp-arr[0][0])/h;
+yp=arr[0][1];
+for(i=1;i<n;i++)
+{ 
+sol=sol*(p-(i-1));
+yp=yp+(arr[0][i+1]*sol)/fact(i);
+}
+printf("\nthe value of function at x=%f is %f",xp,yp);
+}
+int fact(int n)
+{ int i,f=1;
+for(i=1;i<=n;i++)
+f=f*i;
+return f;
+}
+
+
+
+OUTPUT
+Enter the number of data:4
+enter the data valuesx1=0
+y1=1
+x2=1
+y2=2
+x3=2
+y3=11
+x4=3
+y4=34
+
+Difference table is:-
+     
+    x           y         ^1y        ^2y      ^ 3y
+   0.0000    1.0000     1.0000     8.0000    6.0000
+   1.0000    2.0000     9.0000     14.0000
+   2.0000    11.0000    23.0000
+   3.0000    34.0000
+   
+Enter the interpolating value x for function f(x): 2.8
+
+the value of function at x=2.800000 is 27.992
+
+
+
+
+
+
+
+

@@ -1,0 +1,33 @@
+//Simpson's 1/3 Rule
+#define f(x) 1/(1+x*x)
+int main()
+{
+ float ll, ul, integration=0,h,k;
+ int i, sub;
+ 
+ printf("Enter lower limit of integration: ");
+ scanf("%f", &ll);
+ printf("Enter upper limit of integration: ");
+ scanf("%f", &ul);
+ printf("Enter number of sub intervals: ");
+ scanf("%d", &sub);
+ 
+ h = (ul - ll)/sub;
+
+ integration = f(ll) + f(ul);
+ for(i=1; i<= sub-1; i++)
+ {
+  k = ll + i*h;
+  if(i%2==0)
+  {
+   integration = integration + 2 * f(k);
+  }
+  else
+  {
+   integration = integration + 4 * f(k);
+  }
+ }
+ integration = integration * h/3;
+ printf("\nRequired value of integration is: %.3f", integration);
+  return 0;
+}

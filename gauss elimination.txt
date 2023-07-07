@@ -1,0 +1,74 @@
+// Gauss-Elimination Method
+#include <stdio.h>
+
+int main()
+{
+    int i,j,k,n;
+    float arr[20][20],c,x[10],sum=0.0;
+    printf("\nEnter the order of matrix:");
+    scanf("%d",&n);
+    printf("\nEnter the elements of augmented matrix row-wise:\n\n");
+    for (i=1;i<=n;i++)
+    {
+        for (j=1;j<=(n+1);j++)
+        {
+            printf("arr[%d][%d]:",i,j);
+            scanf("%f",&arr[i][j]);
+        }
+    }
+    for (j=1;j<=n;j++) /*Loop for the generation of upper triangular matrix*/
+    {
+        for (i=1;i<=n;i++)
+        {
+            if (i>j)
+            {
+                c=arr[i][j]/arr[j][j];
+                for (k=1;k<=(n+1);k++)
+                {
+                    arr[i][k]=arr[i][k]-c*arr[j][k];
+                }
+            }
+        }
+    }
+    x[n]=arr[n][n+1]/arr[n][n];
+    /*This loop for backward  substitution*/
+    for (i=n-1;i>=1;i--)
+    {
+        sum=0;
+        for (j=i+1;j<=n;j++)
+        {
+            sum=sum+arr[i][j]*x[j];
+        }
+        x[i]=(arr[i][n+1]-sum)/arr[i][i];
+    }
+    printf("\nThe Solution is:\n");
+    for (i=1;i<=n;i++)
+    {
+        printf("\nx%d=%f\t",i,x[i]);/*x1,x2,x3 are the required solution */
+    }
+}
+
+
+
+Output:
+
+Enter the order of matrix:3
+Enter the elements of augmented matrix row-wise:
+
+arr[1][1]:3
+arr[1][2]:20
+arr[1][3]:-1
+arr[1][4]:-18
+arr[2][1]:20
+arr[2][2]:1
+arr[2][3]:-2
+arr[2][4]:17
+arr[3][1]:2
+arr[3][2]:-3
+arr[3][3]:20
+arr[3][4]:25
+The Solution is:
+
+x1=1.000000	
+x2=-1.000000	
+x3=1.000000	

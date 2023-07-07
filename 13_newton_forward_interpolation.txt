@@ -1,0 +1,92 @@
+//Newton Interpolation forward method
+#include<stdio.h>
+#include<math.h>
+int fact(int);
+void main()
+{
+float arr[10][11],xp,h,p,yp,sol=1;
+int i,j,n,ch=30;
+printf("\nWelcome to Newton Interpolation forward method program!");
+printf("\nEnter the number of data: ");
+scanf("%d",&n);
+printf("\nEnter the data values:\n");
+for(i=0;i<n;i++)
+{
+printf("x%d=",i+1);
+scanf("%f",&arr[i][0]);
+printf("y%d=",i+1);
+scanf("%f",&arr[i][1]);
+}
+//difference table.
+for(j=2;j<=n;j++)
+{
+for(i=0;i<n-1;i++)
+{
+arr[i][j]=arr[i+1][j-1]-arr[i][j-1];
+}
+
+}
+//Printing difference  table
+printf("\n Difference table is:-");
+printf("\n\tx\tY");
+for(i=0;i<=n-2;i++)
+{
+printf("\t%c^%dY",ch,i+1);
+}
+for(i=0;i<n;i++)
+{
+printf("\n");
+for(j=0;j<n+1-i;j++)
+{
+printf("\t%.4f",arr[i][j]);
+}
+}
+// Forward difference Formula use
+printf("\nEnter the interpolating value x for function f(x):");
+scanf("%f",&xp);
+h=arr[1][0]-arr[0][0];
+p=(xp-arr[0][0])/h;
+yp=arr[0][1];
+for(i=1;i<n;i++)
+{
+sol=sol*(p-(i-1));
+yp=yp+(arr[0][i+1]*sol)/fact(i);
+}
+printf("\nThe value of function at x=%f is %f\n",xp,yp);
+}
+
+int fact(int n)
+{ 
+int i,f=1;
+for(i=1;i<=n;i++)
+f=f*i;
+return f;
+}
+
+/*
+Output:
+
+Welcome to Newton Interpolation forward method program!
+Enter the number of data: 4
+
+Enter the data values:
+x1=45
+y1=0.7071
+x2=50
+y2=0.7660
+x3=55
+y3=0.8192
+x4=60
+y4=0.8660
+
+ Difference table is:-
+        x       Y       ^1Y    ^2Y    ^3Y
+        45.0000 0.7071  0.0589  -0.0057 -0.0007
+        50.0000 0.7660  0.0532  -0.0064
+        55.0000 0.8192  0.0468
+        60.0000 0.8660
+Enter the interpolating value x for function f(x):52
+
+The value of function at x=52.000000 is 0.788003
+
+*/
